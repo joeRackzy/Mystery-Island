@@ -51,4 +51,22 @@ def display_weather(player):
     if player["raining"]:
         print("🌧️it raining, you cannot move") 
     else:
-        print("☀️ The weather is clear.")             
+        print("☀️ The weather is clear.") 
+
+def display_status(player):
+    print("="*5,"DISPLAY.STATUS","="*5)
+    print(f"Name: {player["name"]}")
+    print(f"Location: {player["location"]}")
+    print(f"Energy: {player["energy"]}")
+    print(f"Inventory: {player["inventory"]}")
+    print("="*25)
+
+def get_avaliable_location(location):
+    island_map = {
+        "baech": ["jungle"],
+        "jungle": ["beach","cave"],
+        "cave": ["jungle", "old_bridge"],
+        "old_bridge": ["cave", "LightHouse"],
+        "LightHouse": ["old_bridge"]
+    }
+    return island_map[location]
