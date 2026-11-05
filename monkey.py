@@ -51,7 +51,7 @@ def display_weather(player):
     if player["raining"]:
         print("🌧️it raining, you cannot move") 
     else:
-        print("☀️ The weather is clear.") 
+        print("☀️ The weather is clear.")
 
 def display_status(player):
     print("="*5,"DISPLAY.STATUS","="*5)
@@ -70,3 +70,25 @@ def get_avaliable_location(location):
         "LightHouse": ["old_bridge"]
     }
     return island_map[location]
+
+def move_player(player):
+    if player["raining"]:
+        print("please you cannot move is raining")
+        return
+    avaliable_location = get_avaliable_location(player["location"])
+
+    for number , location in enumerate(avaliable_location, 1):
+        print(f"{number}. {location}")
+
+    choice = input("choose a location!")
+    if choice == "":
+        return
+    try:
+        choice = int(choice)
+        if choice < 1 or choice > len(avaliable_location):
+            raise ValueError 
+    except ValueError:
+        print("invalid choice please try again ")
+        return
+    destination = avaliable_location[choice - 1]    
+            
