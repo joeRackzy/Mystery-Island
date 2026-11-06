@@ -63,11 +63,11 @@ def display_status(player):
 
 def get_avaliable_location(location):
     island_map = {
-        "baech": ["jungle"],
+        "beach": ["jungle"],
         "jungle": ["beach","cave"],
         "cave": ["jungle", "old_bridge"],
-        "old_bridge": ["cave", "LightHouse"],
-        "LightHouse": ["old_bridge"]
+        "old_bridge": ["cave", "lighthouse"],
+        "lighthouse": ["old_bridge"]
     }
     return island_map[location]
 
@@ -75,9 +75,9 @@ def move_player(player):
     if player["raining"]:
         print("please you cannot move is raining")
         return
-    avaliable_location = get_avaliable_location(player["location"])
+    avaliable_locations = get_avaliable_location(player["location"])
 
-    for number , location in enumerate(avaliable_location, 1):
+    for number , location in enumerate(avaliable_locations, 1):
         print(f"{number}. {location}")
 
     choice = input("choose a location!")
@@ -85,10 +85,29 @@ def move_player(player):
         return
     try:
         choice = int(choice)
-        if choice < 1 or choice > len(avaliable_location):
+        if choice < 1 or choice > len(avaliable_locations):
             raise ValueError 
     except ValueError:
         print("invalid choice please try again ")
         return
-    destination = avaliable_location[choice - 1]    
+    destination = avaliable_locations[choice - 1]
+
+    if destination == "old_bridge" and "rope" not in player["inventory"]:
+        print("You  need a rope to get to old bridge.")  
+        return 
+    
+    player["location"] = destination
+    player["energy"] -= 1
+    if player["energy"] <=0:
+        print("GAME OVER! You have run out of energy.") 
+        return
+    
+    print(f"You have move to {destination}")
+
+    collect_object(player)
+   
+
+
+
+
             
