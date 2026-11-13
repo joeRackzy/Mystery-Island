@@ -3,7 +3,7 @@ import time
 import random
 
 
-# 1. DISPLAY TITLE
+
 def display_title():
     print("\n\t🧗 MYSTERY ISLAND 🌊🏝️")
     print("The Lost Lighthouse")
@@ -17,22 +17,29 @@ def display_title():
     print("\n")
 
 
-# 2. DISPLAY INSTRUCTIONS
+
 def display_instructions():
     print("\nYOUR MISSION:")
-    print("1. You are stranded on a mysterious island.")
-    print("2. Find the rope and lantern.")
-    print("3. Use the rope to cross the old bridge.")
-    print("4. Use the lantern to restore the lighthouse.")
-    print("5. You have only 5 energy points.")
-    print("6. Rain prevents you from moving.")
-    print("7. Make wise decisions to survive.\n")
+    for i in range(1):
+        print("1. You are stranded on a mysterious island.", end="", flush=True)
+        time.sleep(1)
+        print("\n2. Find the rope and lantern.", end="", flush=True)
+        time.sleep(1)
+        print("\n3. Use the rope to cross the old bridge.", end="", flush=True)
+        time.sleep(1)
+        print("\n4. Use the lantern to restore the lighthouse.", end="", flush=True)
+        time.sleep(1)
+        print("\n5. You have only 5 energy points.", end="", flush=True)
+        time.sleep(1)
+        print("\n6. Rain prevents you from moving.", end="", flush=True)
+        time.sleep(1)
+        print("\n7. Make wise decisions to survive.\n", end="", flush=True)
 
 
 # 3. GET PLAYER NAME
 def get_player_name():
     while True:
-        name = input("Enter your name: ").strip()
+        name = input("\nEnter your name: ").strip()
 
         if name == "":
             print("Name cannot be empty.")
@@ -70,9 +77,9 @@ def display_weather(player):
     print(f"\nTemperature: {player['temperature']}°C")
 
     if player["raining"]:
-        print("🌧️ It is raining! You cannot move.")
+        print("🌧️ It is raining! You cannot move.\n")
     else:
-        print("☀️ The weather is clear.")
+        print("☀️ The weather is clear.\n")
 
 
 # 7. DISPLAY PLAYER STATUS

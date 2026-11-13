@@ -18,7 +18,7 @@ def display_instructions():
     print("\nYOUR MISSION:")
     for i in range(1):
             
-        print("\n1. You are stranded on a mysterious island.",end="",flush=True)
+        print("1. You are stranded on a mysterious island.",end="",flush=True)
         time.sleep(2)
         print("\n2. Find the rope and lantern.")
         time.sleep(2)
@@ -35,7 +35,8 @@ def display_instructions():
 
 def create_player():
     while True:
-            name = input("what is your name: ").strip()  
+            name = input("\nEnter is your name: ".title()).strip().title()
+            print(f"\nwelcome {name}".title())  
             if name == "":
                 print("Name mush not be empty")
                 continue
@@ -80,11 +81,11 @@ def display_status(player):
 
 def get_avaliable_location(location):
     island_map = {
-        "beach": ["jungle"],
-        "jungle": ["beach","cave"],
-        "cave": ["jungle", "old_bridge"],
-        "old_bridge": ["cave", "lighthouse"],
-        "lighthouse": ["old_bridge"]
+        "beach": ["Cancel","jungle"],
+        "jungle": ["Cancel","beach","cave"],
+        "cave": ["Cancel","jungle", "old_bridge"],
+        "old_bridge": ["Cancel","cave", "lighthouse"],
+        "lighthouse": ["Cancel","old_bridge"]
     }
     return island_map[location]
 
@@ -94,20 +95,25 @@ def move_player(player):
         return
     avaliable_locations = get_avaliable_location(player["location"])
 
-    for number , location in enumerate(avaliable_locations, 1):
+    for number , location in enumerate(avaliable_locations):
         print(f"{number}. {location}")
 
     choice = input("choose a location!")
     if choice == "":
+        print("choose from the option")
+        return
+    if choice == "0":
+        print("You cancel your movement.")
         return
     try:
         choice = int(choice)
-        if choice < 1 or choice > len(avaliable_locations):
+        if choice < 0  or choice > len(avaliable_locations):
             raise ValueError 
     except ValueError:
         print("invalid choice please try again ")
         return
-    destination = avaliable_locations[choice - 1]
+    
+    destination = avaliable_locations[choice]
 
     if destination == "old_bridge" and "rope" not in player["inventory"]:
         print("You  need a rope to get to old bridge.")  
@@ -163,7 +169,8 @@ def restore_lighthouse(player):
 
     choice = input("do you want to restore the beacon?").lower().strip()
     if choice == "yes":
-        print("You have restore the beacon".upper())
+        print("\nou have restore the beacon".upper())
+        print("you won\n".upper())
         return True
 
     elif choice == "no":
@@ -210,15 +217,15 @@ def save_player_ticket(ticket):
 def play_game():
     
     display_welcome()
-    player =create_player()
     display_instructions()
+    player =create_player()
     player_id(player)
-    print("\nyour live location is currently in beach\n".title())
+    print("your adventure begins at the  beach\n".title())
     
     while True:
         update_weather(player)
         display_weather(player)
-        print("===== menu=====".upper())
+        print("======= game menu ========".upper())
         print("\n1. Move")
         print("2. Collect object")
         print("3. Display status")
@@ -226,6 +233,7 @@ def play_game():
         print("5. Save player result")
         print("6. Load players results")
         print("7. Quit")
+        print("==============================\n")
         choice = input("Choose an option: ")
         if choice == "":
             print("choose from 1-5")
